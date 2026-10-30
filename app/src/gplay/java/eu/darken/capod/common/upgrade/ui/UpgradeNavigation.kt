@@ -9,11 +9,12 @@ import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
 import eu.darken.capod.common.navigation.Nav
 import eu.darken.capod.common.navigation.NavigationEntry
+import eu.darken.capod.common.navigation.NavigationController
 import javax.inject.Inject
 
-class UpgradeNavigation @Inject constructor() : NavigationEntry {
+class UpgradeNavigation @Inject constructor(private val navigation: NavigationController) : NavigationEntry {
     override fun EntryProviderScope<NavKey>.setup() {
-        entry<Nav.Main.Upgrade> { key -> UpgradeScreenHost(route = key) }
+        entry<Nav.Main.Upgrade> { UnlockedFeaturesScreen(onNavigateUp = { navigation.up() }) }
     }
 
     @Module
